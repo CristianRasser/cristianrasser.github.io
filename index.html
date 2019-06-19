@@ -13,7 +13,7 @@
 <body>
     <div class="crono">
         <span id="cronometro">0:00</span>
-            <i class="fas fa-stopwatch"></i>
+        <i class="fas fa-stopwatch"></i>
     </div>
     <div style="justify-content: center">
         <div id=tabla>
@@ -36,25 +36,25 @@
         </div>
         <div id="fin" style="display: none">
             felicidades,completaste el juego en
-            <div id="puntuacion">3 segundos</div> 
-            <div class="boton">Volver a jugar</div>
+            <div id="puntuacion">3 segundos</div>
+            <div class="boton" onclick="empezar()">Volver a jugar</div>
         </div>
         <div id="circulos">
             <script>
-                var total=8
+                var total = 8
                 var proximo = 1;
                 var tempo = 0;
 
                 var crono = setInterval(actualizaCrono, 1000)
-                
-                
+
+
                 function actualizaCrono() {
                     tempo = tempo + 1
                     var divCrono = document.getElementById("cronometro")
-                    var minutos = Math.floor(tempo/60)
-                    var segundos = tempo%60
+                    var minutos = Math.floor(tempo / 60)
+                    var segundos = tempo % 60
 
-                    if (segundos <10) {
+                    if (segundos < 10) {
                         segundos = "0" + segundos
                     }
                     divCrono.textContent = minutos + ":" + segundos;
@@ -65,12 +65,15 @@
                     circulo.setAttribute("class", "circulo")
                     var color = "hsl(" + Math.floor(Math.random() * 360) + "," + (Math.floor(Math.random() * 70) + 30) + "%," + (Math.floor(Math.random() * 50) + 25) + "%)"
                     circulo.style.backgroundColor = color
-                    circulo.style.top = Math.floor(Math.random() * 750) + "px"
-                    circulo.style.left = Math.floor(Math.random() * 1100) + "px"
+                    document.body.appendChild(circulo)
+                    var ancho = document.documentElement.clientWidth - circulo.clientWidth;
+                    var alto = document.documentElement.clientHeight - circulo.offsetHeight;
+                    circulo.style.left = Math.floor(Math.random() * ancho) + "px"
+                    circulo.style.top = Math.floor(Math.random() * alto) + "px"
                     circulo.textContent = numCirculo
                     var tabla = document.getElementById("tabla")
                     //circulo.appendChild("tabla")
-                    document.body.appendChild(circulo)
+
                     circulo.onclick = function () {
                         if (numCirculo == proximo) {
                             circulo.style.top = "-200px"
@@ -79,7 +82,7 @@
                         if (numCirculo == total) {
                             clearInterval(crono) //Para la actualizacion del cronometro
                             var divfin = document.getElementById("fin")
-                            divfin.style.display= "block"
+                            divfin.style.display = "block"
                             var puntuacion = document.getElementById("puntuacion")
                             puntuacion.textContent = tempo + " segundos"
                         }
@@ -98,7 +101,7 @@
             } else {
                 x.style.display = "none";
             }
-            for (var numero = total; numero >=1; numero = numero - 1) {
+            for (var numero = total; numero >= 1; numero = numero - 1) {
                 creaCirculo(numero)
             }
         }
